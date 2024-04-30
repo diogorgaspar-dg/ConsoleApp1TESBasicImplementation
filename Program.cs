@@ -13,12 +13,12 @@ public class Employee
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string JobId { get; set; }
+    public int JobId { get; set; }
 }
 
 public class Job
 {
-    public string JobId { get; set; }
+    public int JobId { get; set; }
     public string JobName { get; set; }
 }
 
@@ -40,7 +40,7 @@ class Program
             try
             {
                 // Get employees
-                HttpResponseMessage response = await client.GetAsync($"{baseUrl}/employees");
+                HttpResponseMessage response = await client.GetAsync($"{baseUrl}/Data/employees");
                 response.EnsureSuccessStatusCode(); 
                 //doing the same thing here as I did in the office. Using the 'read as string async'
                 string responseBody = await response.Content.ReadAsStringAsync();
@@ -50,7 +50,7 @@ class Program
                 List<Employee> employees = JsonConvert.DeserializeObject<List<Employee>>(responseBody);
 
                 // Get jobs. Same logic as employees
-                response = await client.GetAsync($"{baseUrl}/jobs");
+                response = await client.GetAsync($"{baseUrl}/Data/jobs");
                 response.EnsureSuccessStatusCode();
                 responseBody = await response.Content.ReadAsStringAsync();
 
